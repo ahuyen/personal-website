@@ -13,6 +13,19 @@ pipeline:
     when:
       branch: [ master ]
       event: [push, pull_request] # trigger step on push and pull events
+publish:
+  image: plugins/docker
+  username: ${DOCKER_USERNAME}
+  password: ${DOCKER_PASSWORD}
+  email: 11825744+ahuyen@users.noreply.github.com
+  repo: ahuyen/personalwebsite
+  tag: latest
+  file: Dockerfile
+  environment:
+    - DOCKER_LAUNCH_DEBUG=true
+  when:
+    branch: [ master ]
+    event: [ push ]
 services:
   database:
     image: postgres
